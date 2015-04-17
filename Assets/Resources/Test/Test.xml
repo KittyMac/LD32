@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Canvas title="Scene" renderMode="ScreenSpaceCamera" xmlns="http://schema.smallplanet.com/PlanetUnity2.xsd" >
+	<Color color="#FF0000FF" anchor="stretch,stretch" />	
+</Canvas>
