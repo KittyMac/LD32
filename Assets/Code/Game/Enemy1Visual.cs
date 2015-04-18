@@ -11,7 +11,7 @@ public class Enemy1Visual : CarController {
 			mesh.Clear ();
 		}
 
-		mesh = new MeshHelper (1, "Game/card1", "LD32/TruckBillboard");
+		mesh = new MeshHelper (1, "Game/car1", "LD32/TruckBillboard");
 
 
 		float tileX = 0.0f;

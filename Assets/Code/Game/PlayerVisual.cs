@@ -113,7 +113,7 @@ public class PlayerVisual : CarController {
 		Vector3 pos = transform.position;
 		pos.y += 600;
 		pos.z -= 600;
-		Camera.main.transform.localPosition = new Vector3 (0, 200, -200);
+		Camera.main.transform.localPosition = new Vector3 (0, 400, -400);
 
 		Camera.main.transform.LookAt (transform.position, new Vector3 (0, 1, 0));
 	}

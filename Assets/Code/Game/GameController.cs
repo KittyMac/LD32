@@ -24,6 +24,15 @@ public partial class GameController : MonoBehaviour, IPUCode {
 		CreateTiledRoad (roadGenerator);
 
 		CreatePlayerObject ();
+
+		AddEnemyOfType1 ();
+	}
+
+	public void AddEnemyOfType1() {
+		GameObject enemy = new GameObject ("Enemy1");
+		enemy.AddComponent<Enemy1Visual> ();
+
+		FindRandomSpotForCar(enemy);
 	}
 
 	public void CreatePlayerObject() {
@@ -34,12 +43,18 @@ public partial class GameController : MonoBehaviour, IPUCode {
 		
 		Camera.main.transform.SetParent (player.transform, false);
 
+		FindRandomSpotForCar(player);
+	}
+
+	public void FindRandomSpotForCar(GameObject car) {
+		CarController controller = car.GetComponent<CarController> ();
+
 		// Find a random, valid road space to put the player on
 		for (int i = 0; i < 10000; i++) {
 			int randX = Random.Range (1, RoadGenerator.roadDimensions - 1);
 			int randY = Random.Range (1, RoadGenerator.roadDimensions - 1);
 
-			if(playerVisual.MovePlayerToTile (randX, randY)){
+			if(controller.MovePlayerToTile (randX, randY)){
 				break;
 			}
 		}

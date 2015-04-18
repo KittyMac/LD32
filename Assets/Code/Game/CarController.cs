@@ -19,6 +19,8 @@ public class CarController : NotificationBehaviour {
 	}
 
 	public bool MovePlayerToTile(int x, int y){
+		CheckRoadGenerator ();
+
 		if (roadGenerator.roadMap [x, y] == 1) {
 			playerPosition = new Vector3 ((x * 128), 64, (y * 128));
 			return true;
@@ -46,6 +48,8 @@ public class CarController : NotificationBehaviour {
 			return false;
 		}
 
+		CheckRoadGenerator ();
+
 		Vector3 leftVector = playerVector.RotateLeftAboutY ();
 		return (roadGenerator.roadMap [Mathf.RoundToInt(tileX + leftVector.x), Mathf.RoundToInt(tileY + leftVector.z)] == 1);
 	}
@@ -58,6 +62,8 @@ public class CarController : NotificationBehaviour {
 			return false;
 		}
 
+		CheckRoadGenerator ();
+
 		Vector3 leftVector = playerVector.RotateRightAboutY ();
 		return (roadGenerator.roadMap [Mathf.RoundToInt(tileX + leftVector.x), (int)(tileY + leftVector.z)] == 1);
 	}
@@ -65,6 +71,9 @@ public class CarController : NotificationBehaviour {
 	public bool IsPlayerOnARoad() {
 		int tileX, tileY;
 		PlayerTile (out tileX, out tileY);
+
+		CheckRoadGenerator ();
+
 		return (roadGenerator.roadMap [tileX, tileY] == 1);
 	}
 	
