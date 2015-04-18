@@ -4,7 +4,7 @@ using System.Text;
 
 public class RoadGenerator {
 
-	public const int roadDimensions = 20;
+	public const int roadDimensions = 100;
 
 	public byte[,] roadTilesMap;
 	public byte[,] roadMap;
@@ -88,12 +88,6 @@ public class RoadGenerator {
 				roadTilesMap [x, y] = 15;
 
 				if (roadMap [x, y] == 1) {
-
-					if (x == 1 && y == 1) {
-						Debug.Log (string.Format ("{0} {1} {2} {3}", topRoad, bottomRoad, leftRoad, rightRoad));
-					}
-
-
 
 					if (topRoad == false && bottomRoad == true && leftRoad == false && rightRoad == false) {
 						roadTilesMap [x, y] = 14;

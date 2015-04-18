@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<Canvas title="Scene" renderMode="ScreenSpaceCamera" xmlns="http://schema.smallplanet.com/PlanetUnity2.xsd" >
+<Canvas title="Scene" renderMode="ScreenSpaceOverlay" xmlns="http://schema.smallplanet.com/PlanetUnity2.xsd" >
+
+
+	<Text title="DebugPlayerPos" fontSize="14" fontColor="#FFFFFFFF" bounds="0,0,400,30" />
 
 	<Code class="GameController" />
 	

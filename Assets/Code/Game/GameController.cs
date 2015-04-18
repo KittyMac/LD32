@@ -2,10 +2,15 @@
 using UnityEngine;
 using System.Text;
 
-public class GameController : MonoBehaviour, IPUCode {
+public partial class GameController : MonoBehaviour, IPUCode {
+
+	public PUText DebugPlayerPos;
 
 	private RoadGenerator roadGenerator;
 	private MeshHelper roadMesh;
+
+	private GameObject player;
+	private PlayerVisual playerVisual;
 	
 	public void Start() {
 
@@ -15,6 +20,26 @@ public class GameController : MonoBehaviour, IPUCode {
 
 		CreateTiledRoad (roadGenerator);
 
+		CreatePlayerObject ();
+	}
+
+	public void CreatePlayerObject() {
+		player = new GameObject ("Player");
+		playerVisual = player.AddComponent<PlayerVisual> ();
+
+		player.transform.transform.localEulerAngles = new Vector3 (0, 45, 0);
+		
+		Camera.main.transform.SetParent (player.transform, false);
+
+		// Find a random, valid road space to put the player on
+		for (int i = 0; i < 10000; i++) {
+			int randX = Random.Range (1, RoadGenerator.roadDimensions - 1);
+			int randY = Random.Range (1, RoadGenerator.roadDimensions - 1);
+
+			if(MovePlayerToTile (randX, randY)){
+				break;
+			}
+		}
 	}
 	
 	public void CreateTiledRoad(RoadGenerator roadGenerator) {
@@ -45,5 +70,10 @@ public class GameController : MonoBehaviour, IPUCode {
 		}
 
 		roadMesh.Commit ();
+
+		BoxCollider collider = roadMesh.gameObject.AddComponent<BoxCollider> ();
+
+		Rigidbody body = roadMesh.gameObject.AddComponent<Rigidbody> ();
+		body.isKinematic = true;
 	}
 }

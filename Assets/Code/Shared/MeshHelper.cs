@@ -341,10 +341,6 @@ public class MeshHelper {
 		} else {
 			mesh.RecalculateBounds ();
 		}
-
-		#if UNITY_EDITOR == true
-		Debug.Log ("quads used: " + i);
-		#endif
 	}
 
 	public void Clear() {
