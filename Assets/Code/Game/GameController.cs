@@ -14,10 +14,12 @@ public partial class GameController : MonoBehaviour, IPUCode {
 	public PlayerVisual playerVisual;
 
 	public List<GameObject> enemies = new List<GameObject>();
+	public List<GameObject> turnips = new List<GameObject>();
 	public List<GameObject> ketchupSpills = new List<GameObject>();
 
 	public GameObject KetchupAnim;
 	public GameObject KetchupSpill;
+	public GameObject Turnip;
 	
 	public void Start() {
 
@@ -32,6 +34,11 @@ public partial class GameController : MonoBehaviour, IPUCode {
 		AddEnemyOfType1 ();
 
 
+		NumberOfCollectedTurnips = 0;
+		for (int i = 0; i < 10; i++) {
+			AddTurnip ();
+		}
+
 		NotificationCenter.addObserver (this, "UnconventionalWeaponActivate", null, (args, name) => {
 			GameObject localKetchupAnim = GameObject.Instantiate(KetchupAnim, player.transform.position, Quaternion.Euler(new Vector3(0,45,0))) as GameObject;
 			localKetchupAnim.SetActive(true);
@@ -45,6 +52,15 @@ public partial class GameController : MonoBehaviour, IPUCode {
 			localKetchupSpill.SetActive(true);
 			ketchupSpills.Add(localKetchupSpill);
 		});
+	}
+
+	public void AddTurnip() {
+		GameObject localTurnip = GameObject.Instantiate(Turnip, player.transform.position, Quaternion.Euler(new Vector3(60,45,0))) as GameObject;
+		localTurnip.SetActive(true);
+
+		FindRandomSpotForTurnip (localTurnip);
+
+		turnips.Add (localTurnip);
 	}
 
 	public void AddEnemyOfType1() {
@@ -76,6 +92,32 @@ public partial class GameController : MonoBehaviour, IPUCode {
 			int randY = Random.Range (1, RoadGenerator.roadDimensions - 1);
 
 			if(controller.MovePlayerToTile (randX, randY)){
+				// Cannot be too close to the player
+				if (car != player && Vector3.Distance (car.transform.position, player.transform.position) < 4096) {
+					continue;
+				}
+				break;
+			}
+		}
+	}
+
+	public void FindRandomSpotForTurnip(GameObject newTurnip) {
+		
+		// Find a random, valid road space to put the player on
+		for (int i = 0; i < 10000; i++) {
+			int randX = Random.Range (1, RoadGenerator.roadDimensions - 1);
+			int randY = Random.Range (1, RoadGenerator.roadDimensions - 1);
+
+			if(roadGenerator.roadMap [randX, randY] == 1){
+				// Cannot be too close to any other turnips
+				foreach (GameObject turnip in turnips) {
+					if (Vector3.Distance (turnip.transform.position, newTurnip.transform.position) < 2048) {
+						continue;
+					}
+				}
+
+				newTurnip.transform.position = new Vector3 ((randX * 128), 32, (randY * 128));
+
 				break;
 			}
 		}
