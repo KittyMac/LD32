@@ -20,7 +20,7 @@ public partial class GameController : MonoBehaviour, IPUCode {
 	public GameObject KetchupAnim;
 	public GameObject KetchupSpill;
 	public GameObject Turnip;
-	
+
 	public void Start() {
 
 		roadGenerator = new RoadGenerator();
@@ -31,6 +31,7 @@ public partial class GameController : MonoBehaviour, IPUCode {
 
 		CreatePlayerObject ();
 
+		AddEnemyOfType1 ();
 		AddEnemyOfType1 ();
 
 
@@ -70,6 +71,8 @@ public partial class GameController : MonoBehaviour, IPUCode {
 		FindRandomSpotForCar(enemy);
 
 		enemies.Add (enemy);
+
+		AddEdgeIndicator (player, enemy, "Game/car_indicator");
 	}
 
 	public void CreatePlayerObject() {

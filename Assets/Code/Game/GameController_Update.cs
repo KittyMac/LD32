@@ -7,6 +7,7 @@ public partial class GameController : MonoBehaviour, IPUCode {
 
 	public int NumberOfCollectedTurnips = 0;
 
+	public PUGameObject EdgeOfScreenIndicators;
 
 	public void CollectTurnip(GameObject turnip) {
 
@@ -15,6 +16,15 @@ public partial class GameController : MonoBehaviour, IPUCode {
 		GameObject.Destroy (turnip);
 
 		turnips.Remove (turnip);
+	}
+
+	public void AddEdgeIndicator(GameObject from, GameObject to, string imagePath) {
+		PUEdgeIndicator i = new PUEdgeIndicator ();
+		i.SetFrame (0, 0, 64, 64, 0.5f, 0.5f, "bottom,left");
+		i.resourcePath = imagePath;
+		i.from = from;
+		i.to = to;
+		i.LoadIntoPUGameObject (EdgeOfScreenIndicators);
 	}
 
 	public void Update() {
