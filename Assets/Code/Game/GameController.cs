@@ -5,8 +5,6 @@ using System.Collections.Generic;
 
 public partial class GameController : MonoBehaviour, IPUCode {
 
-	public PUText DebugPlayerPos;
-
 	public RoadGenerator roadGenerator;
 	private MeshHelper roadMesh, roadMesh2, roadMesh3, roadMesh4, roadMesh5, roadMesh6, roadMesh7, roadMesh8, roadMesh9;
 

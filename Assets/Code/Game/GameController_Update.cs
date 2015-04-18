@@ -11,6 +11,8 @@ public partial class GameController : MonoBehaviour, IPUCode {
 	public PUGameObject EdgeOfScreenIndicators;
 	public PUGameObject KetchupIndicators;
 
+	public PUText TurnipScore;
+
 	public void CollectTurnip(GameObject turnip) {
 
 		NumberOfCollectedTurnips++;
@@ -20,6 +22,8 @@ public partial class GameController : MonoBehaviour, IPUCode {
 		turnips.Remove (turnip);
 
 		GameObject.DestroyImmediate (turnip);
+
+		TurnipScore.text.text = string.Format ("{0} of {1}", NumberOfCollectedTurnips, 10);
 	}
 
 	public void RemoveEdgeIndicator(GameObject to) {
