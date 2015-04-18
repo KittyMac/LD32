@@ -6,6 +6,9 @@ public class PlayerVisual : CarController {
 
 	MeshHelper mesh;
 
+	protected const float KetchupDelay = 1;
+	protected float KetchupTimer = KetchupDelay;
+
 	public void UpdateGeometry(Vector3 velocity) {
 		if (mesh != null) {
 			mesh.Clear ();
@@ -72,14 +75,24 @@ public class PlayerVisual : CarController {
 	}
 
 	public void HandlePlayerControls() {
+
+		if (KetchupTimer > 0) {
+			KetchupTimer -= Time.deltaTime;
+		} else {
+			if (Input.GetKey (KeyCode.Space)) {
+				NotificationCenter.postNotification (null, "UnconventionalWeaponActivate");
+				KetchupTimer = KetchupDelay;
+			}
+		}
+
 		// Movement by AWSD keyboard
-		if (Input.GetKey ("w")) {
+		if (Input.GetKey ("w") || Input.GetKey (KeyCode.UpArrow)) {
 			// Speed up
 			playerSpeed += 50.0f * Time.deltaTime;
 			if (playerSpeed > 600.0f) {
 				playerSpeed = 600.0f;
 			}
-		} else if (Input.GetKey ("s")) {
+		} else if (Input.GetKey ("s") || Input.GetKey (KeyCode.DownArrow)) {
 			// Slow down
 			playerSpeed -= 200.0f * Time.deltaTime;
 			if (playerSpeed < 0) {
@@ -91,13 +104,15 @@ public class PlayerVisual : CarController {
 		// 0) Find my current tile
 		// 1) If the tile to my left is road, allow a turn
 		// 2) If the tile to my right is a road, allow a turn
-		if (Input.GetKey ("a")) {
-			if (CanPlayerTurnLeft()) {
+		short leftDistance;
+		short rightDistance;
+		if (Input.GetKey ("a") || Input.GetKey (KeyCode.LeftArrow)) {
+			if (CanPlayerTurnLeft(out leftDistance)) {
 				playerVector = playerVector.RotateLeftAboutY ();
 				MarkPlayerTurned ();
 			}
-		} else if (Input.GetKey ("d")) {
-			if (CanPlayerTurnRight()) {
+		} else if (Input.GetKey ("d") || Input.GetKey (KeyCode.RightArrow)) {
+			if (CanPlayerTurnRight(out rightDistance)) {
 				playerVector = playerVector.RotateRightAboutY ();
 				MarkPlayerTurned ();
 			}
@@ -113,7 +128,7 @@ public class PlayerVisual : CarController {
 		Vector3 pos = transform.position;
 		pos.y += 600;
 		pos.z -= 600;
-		Camera.main.transform.localPosition = new Vector3 (0, 400, -400);
+		Camera.main.transform.localPosition = new Vector3 (0, 700, -700);
 
 		Camera.main.transform.LookAt (transform.position, new Vector3 (0, 1, 0));
 	}

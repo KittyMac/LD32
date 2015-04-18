@@ -59,14 +59,13 @@ public class Enemy1Visual : CarController {
 
 		mesh.AddQuad (quad);
 
-		mesh.Commit ();
+		mesh.Commit (true);
 	}
 
 
 	public void Update() {
 
-		// TODO: HANDLE ENEMY AI
-
+		HandleCarAI();
 		UpdatePlayer ();
 	}
 

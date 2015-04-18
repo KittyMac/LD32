@@ -8,12 +8,16 @@ public partial class GameController : MonoBehaviour, IPUCode {
 	public PUText DebugPlayerPos;
 
 	public RoadGenerator roadGenerator;
-	private MeshHelper roadMesh, roadMesh2, roadMesh3, roadMesh4, roadMesh5, roadMesh6, roadMesh7, roadMesh8;
+	private MeshHelper roadMesh, roadMesh2, roadMesh3, roadMesh4, roadMesh5, roadMesh6, roadMesh7, roadMesh8, roadMesh9;
 
 	public GameObject player;
 	public PlayerVisual playerVisual;
 
-	public List<GameObject> enemies;
+	public List<GameObject> enemies = new List<GameObject>();
+	public List<GameObject> ketchupSpills = new List<GameObject>();
+
+	public GameObject KetchupAnim;
+	public GameObject KetchupSpill;
 	
 	public void Start() {
 
@@ -26,6 +30,21 @@ public partial class GameController : MonoBehaviour, IPUCode {
 		CreatePlayerObject ();
 
 		AddEnemyOfType1 ();
+
+
+		NotificationCenter.addObserver (this, "UnconventionalWeaponActivate", null, (args, name) => {
+			GameObject localKetchupAnim = GameObject.Instantiate(KetchupAnim, player.transform.position, Quaternion.Euler(new Vector3(0,45,0))) as GameObject;
+			localKetchupAnim.SetActive(true);
+			LeanTween.delayedCall(1.0f, () => {
+				GameObject.Destroy(localKetchupAnim);
+			});
+
+			Vector3 pos = player.transform.position;
+			pos.y = 2;
+			GameObject localKetchupSpill = GameObject.Instantiate(KetchupSpill, pos, Quaternion.Euler(new Vector3(90,320,0))) as GameObject;
+			localKetchupSpill.SetActive(true);
+			ketchupSpills.Add(localKetchupSpill);
+		});
 	}
 
 	public void AddEnemyOfType1() {
@@ -33,6 +52,8 @@ public partial class GameController : MonoBehaviour, IPUCode {
 		enemy.AddComponent<Enemy1Visual> ();
 
 		FindRandomSpotForCar(enemy);
+
+		enemies.Add (enemy);
 	}
 
 	public void CreatePlayerObject() {
@@ -86,6 +107,9 @@ public partial class GameController : MonoBehaviour, IPUCode {
 		if (roadMesh8 != null) {
 			roadMesh8.Clear ();
 		}
+		if (roadMesh9 != null) {
+			roadMesh9.Clear ();
+		}
 
 		roadMesh = new MeshHelper (RoadGenerator.roadDimensions * RoadGenerator.roadDimensions, "Game/tiles", "Mobile/Diffuse");
 		roadMesh2 = new MeshHelper (RoadGenerator.roadDimensions * RoadGenerator.roadDimensions, "Game/tiles", "Mobile/Diffuse");
@@ -95,6 +119,7 @@ public partial class GameController : MonoBehaviour, IPUCode {
 		roadMesh6 = new MeshHelper (RoadGenerator.roadDimensions * RoadGenerator.roadDimensions, "Game/tiles", "Mobile/Diffuse");
 		roadMesh7 = new MeshHelper (RoadGenerator.roadDimensions * RoadGenerator.roadDimensions, "Game/tiles", "Mobile/Diffuse");
 		roadMesh8 = new MeshHelper (RoadGenerator.roadDimensions * RoadGenerator.roadDimensions, "Game/tiles", "Mobile/Diffuse");
+		roadMesh9 = new MeshHelper (RoadGenerator.roadDimensions * RoadGenerator.roadDimensions, "Game/tiles", "Mobile/Diffuse");
 
 		for (int y = 0; y < RoadGenerator.roadDimensions; y++) {
 			for (int x = 0; x < RoadGenerator.roadDimensions; x++) {
@@ -163,6 +188,13 @@ public partial class GameController : MonoBehaviour, IPUCode {
 					new Vector4 (tileX + 0.01f, tileY + 0.01f, tileX + 0.24f, tileY + 0.24f),
 					Color.white,
 					true);
+
+				roadMesh9.AddQuad (
+					new Vector2 (128, 128),
+					new Vector3 (x * 128, 0, y * 128), 
+					new Vector4 (tileX + 0.01f, tileY + 0.01f, tileX + 0.24f, tileY + 0.24f),
+					Color.white,
+					true);
 			}
 		}
 
@@ -174,6 +206,7 @@ public partial class GameController : MonoBehaviour, IPUCode {
 		roadMesh6.Commit ();
 		roadMesh7.Commit ();
 		roadMesh8.Commit ();
+		roadMesh9.Commit ();
 
 		roadMesh2.gameObject.transform.localPosition = new Vector3 (RoadGenerator.roadDimensions * -128, 0, 0);
 		roadMesh3.gameObject.transform.localPosition = new Vector3 (0, 0, RoadGenerator.roadDimensions * -128);
@@ -182,6 +215,7 @@ public partial class GameController : MonoBehaviour, IPUCode {
 		roadMesh6.gameObject.transform.localPosition = new Vector3 (RoadGenerator.roadDimensions * -128, 0, RoadGenerator.roadDimensions * 128);
 		roadMesh7.gameObject.transform.localPosition = new Vector3 (RoadGenerator.roadDimensions * 128, 0, RoadGenerator.roadDimensions * -128);
 		roadMesh8.gameObject.transform.localPosition = new Vector3 (RoadGenerator.roadDimensions * 128, 0, RoadGenerator.roadDimensions * 128);
+		roadMesh9.gameObject.transform.localPosition = new Vector3 (RoadGenerator.roadDimensions * -128, 0, RoadGenerator.roadDimensions * -128);
 
 
 		roadMesh.gameObject.AddComponent<BoxCollider> ();
