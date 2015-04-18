@@ -1,16 +1,19 @@
 
 using UnityEngine;
 using System.Text;
+using System.Collections.Generic;
 
 public partial class GameController : MonoBehaviour, IPUCode {
 
 	public PUText DebugPlayerPos;
 
-	private RoadGenerator roadGenerator;
+	public RoadGenerator roadGenerator;
 	private MeshHelper roadMesh, roadMesh2, roadMesh3, roadMesh4, roadMesh5, roadMesh6, roadMesh7, roadMesh8;
 
-	private GameObject player;
-	private PlayerVisual playerVisual;
+	public GameObject player;
+	public PlayerVisual playerVisual;
+
+	public List<GameObject> enemies;
 	
 	public void Start() {
 
@@ -36,7 +39,7 @@ public partial class GameController : MonoBehaviour, IPUCode {
 			int randX = Random.Range (1, RoadGenerator.roadDimensions - 1);
 			int randY = Random.Range (1, RoadGenerator.roadDimensions - 1);
 
-			if(MovePlayerToTile (randX, randY)){
+			if(playerVisual.MovePlayerToTile (randX, randY)){
 				break;
 			}
 		}
