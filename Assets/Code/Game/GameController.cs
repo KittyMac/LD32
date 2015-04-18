@@ -35,23 +35,29 @@ public partial class GameController : MonoBehaviour, IPUCode {
 		AddEnemyOfType1 ();
 
 
+		NumberOfKetchupUses = 10;
+
 		NumberOfCollectedTurnips = 0;
 		for (int i = 0; i < 10; i++) {
 			AddTurnip ();
 		}
 
 		NotificationCenter.addObserver (this, "UnconventionalWeaponActivate", null, (args, name) => {
-			GameObject localKetchupAnim = GameObject.Instantiate(KetchupAnim, player.transform.position, Quaternion.Euler(new Vector3(0,45,0))) as GameObject;
-			localKetchupAnim.SetActive(true);
-			LeanTween.delayedCall(1.0f, () => {
-				GameObject.Destroy(localKetchupAnim);
-			});
+			if(NumberOfKetchupUses > 0){
+				GameObject localKetchupAnim = GameObject.Instantiate(KetchupAnim, player.transform.position, Quaternion.Euler(new Vector3(0,45,0))) as GameObject;
+				localKetchupAnim.SetActive(true);
+				LeanTween.delayedCall(1.0f, () => {
+					GameObject.DestroyImmediate(localKetchupAnim);
+				});
 
-			Vector3 pos = player.transform.position;
-			pos.y = 2;
-			GameObject localKetchupSpill = GameObject.Instantiate(KetchupSpill, pos, Quaternion.Euler(new Vector3(90,320,0))) as GameObject;
-			localKetchupSpill.SetActive(true);
-			ketchupSpills.Add(localKetchupSpill);
+				Vector3 pos = player.transform.position;
+				pos.y = 2;
+				GameObject localKetchupSpill = GameObject.Instantiate(KetchupSpill, pos, Quaternion.Euler(new Vector3(90,320,0))) as GameObject;
+				localKetchupSpill.SetActive(true);
+				ketchupSpills.Add(localKetchupSpill);
+
+				NumberOfKetchupUses--;
+			}
 		});
 	}
 
@@ -62,6 +68,8 @@ public partial class GameController : MonoBehaviour, IPUCode {
 		FindRandomSpotForTurnip (localTurnip);
 
 		turnips.Add (localTurnip);
+
+		AddEdgeIndicator (player, localTurnip, "Game/turnip_indicator", 32);
 	}
 
 	public void AddEnemyOfType1() {
@@ -72,7 +80,7 @@ public partial class GameController : MonoBehaviour, IPUCode {
 
 		enemies.Add (enemy);
 
-		AddEdgeIndicator (player, enemy, "Game/car_indicator");
+		AddEdgeIndicator (player, enemy, "Game/car_indicator", 48);
 	}
 
 	public void CreatePlayerObject() {

@@ -30,14 +30,12 @@ public class PUEdgeIndicator : PURawImage {
 		if (screenPos.x < 0 || screenPos.x > Camera.main.pixelWidth || screenPos.y < 0 || screenPos.y > Camera.main.pixelHeight) {
 			Ray ray = new Ray (from.transform.position, to.transform.position - from.transform.position);
 			float bestDistance = 999999999.0f;
-			bool foundPlane = false;
 
 			foreach (Plane plane in planes) {
 				float distanceToPlane;
 				if (plane.Raycast (ray, out distanceToPlane)) {
 					if (distanceToPlane < bestDistance) {
 						bestDistance = distanceToPlane;
-						foundPlane = true;
 					}
 				}
 			}

@@ -6,25 +6,54 @@ using System.Collections.Generic;
 public partial class GameController : MonoBehaviour, IPUCode {
 
 	public int NumberOfCollectedTurnips = 0;
+	public int NumberOfKetchupUses = 0;
 
 	public PUGameObject EdgeOfScreenIndicators;
+	public PUGameObject KetchupIndicators;
 
 	public void CollectTurnip(GameObject turnip) {
 
 		NumberOfCollectedTurnips++;
 
-		GameObject.Destroy (turnip);
+		RemoveEdgeIndicator (turnip);
 
 		turnips.Remove (turnip);
+
+		GameObject.DestroyImmediate (turnip);
 	}
 
-	public void AddEdgeIndicator(GameObject from, GameObject to, string imagePath) {
+	public void RemoveEdgeIndicator(GameObject to) {
+		foreach (PUEdgeIndicator i in EdgeOfScreenIndicators.children) {
+			if (i.to == to) {
+				i.unload ();
+				return;
+			}
+		}
+	}
+
+	public void AddEdgeIndicator(GameObject from, GameObject to, string imagePath, float size) {
 		PUEdgeIndicator i = new PUEdgeIndicator ();
-		i.SetFrame (0, 0, 64, 64, 0.5f, 0.5f, "bottom,left");
+		i.SetFrame (0, 0, size, size, 0.5f, 0.5f, "bottom,left");
 		i.resourcePath = imagePath;
 		i.from = from;
 		i.to = to;
 		i.LoadIntoPUGameObject (EdgeOfScreenIndicators);
+	}
+
+	public void UpdateKetchupIndicators() {
+		// If we don't have enough indicators
+		while (KetchupIndicators.children.Count < NumberOfKetchupUses) {
+			PURawImage i = new PURawImage ();
+			i.SetFrame (KetchupIndicators.children.Count * 26 + 4, 2, 28, 58, 0, 0, "bottom,left");
+			i.resourcePath = "Game/ketchup_indicator";
+			i.LoadIntoPUGameObject (KetchupIndicators);
+		}
+
+		// If we have too many indicators
+		while (KetchupIndicators.children.Count > NumberOfKetchupUses) {
+			PUGameObject lastObject = KetchupIndicators.children [KetchupIndicators.children.Count - 1] as PUGameObject;
+			lastObject.unload ();
+		}
 	}
 
 	public void Update() {
@@ -70,6 +99,8 @@ public partial class GameController : MonoBehaviour, IPUCode {
 			ketchupSpills.Remove (spill);
 			LeanTween.alpha (spill, 0.0f, 3.0f).setDestroyOnComplete (true);
 		}
+
+		UpdateKetchupIndicators ();
 
 	}
 
