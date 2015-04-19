@@ -337,7 +337,9 @@ public class MeshHelper {
 		mesh.triangles = triangles;
 
 		if (infiniteBounds) {
-			mesh.bounds = new Bounds(Vector3.zero, new Vector3(100000000.0f, 100000000.0f, 100000000.0f)); // NOTE: using infinity here causes an error
+			mesh.bounds = new Bounds(
+				new Vector3(0, 0, 0), 
+				new Vector3(1000000.0f, 1000000.0f, 1000000.0f)); // NOTE: using infinity here causes an error
 		} else {
 			mesh.RecalculateBounds ();
 		}

@@ -27,6 +27,8 @@ public partial class GameController : MonoBehaviour, IPUCode {
 
 		CreateTiledRoad (roadGenerator);
 
+		CreateScenary ();
+
 		CreatePlayerObject ();
 
 		AddEnemyOfType1 ();
@@ -57,6 +59,11 @@ public partial class GameController : MonoBehaviour, IPUCode {
 				NumberOfKetchupUses--;
 			}
 		});
+	}
+
+	public void CreateScenary() {
+		GameObject scenary = new GameObject ("Scenary");
+		scenary.AddComponent<ScenaryVisual> ();
 	}
 
 	public void AddTurnip() {

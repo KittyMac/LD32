@@ -5,9 +5,9 @@ Shader "LD32/TruckBillboard" {
 	}
 	SubShader {
 
-		Tags { "Queue"="Transparent" "IgnoreProjector"="True" "RenderType"="Transparent" }
+		Tags { "Queue"="Transparent-1" "IgnoreProjector"="True" "RenderType"="Transparent" }
 		Blend SrcAlpha OneMinusSrcAlpha
-		Cull Off Lighting Off ZWrite Off Fog { Color (0,0,0,0) }
+		Cull Off Lighting On ZWrite Off Fog { Color (0,0,0,0) }
 
 		Pass {   
 			CGPROGRAM

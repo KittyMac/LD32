@@ -192,13 +192,13 @@ public class CarController : NotificationBehaviour {
 		playerPosition = oldPlayerPosition;
 
 		if (leftDistanceValue < rightDistanceValue && leftDistanceValue < straightDistanceValue) {
-			if (Random.Range (0, 100) < 80) {
+			if (Random.Range (0, 100) < 90) {
 				playerVector = playerVector.RotateLeftAboutY ();
 			}
 			MarkPlayerTurned ();
 		}
 		if (rightDistanceValue < leftDistanceValue && rightDistanceValue < straightDistanceValue) {
-			if (Random.Range (0, 100) < 80) {
+			if (Random.Range (0, 100) < 90) {
 				playerVector = playerVector.RotateRightAboutY ();
 			}
 			MarkPlayerTurned ();

@@ -1,6 +1,7 @@
 
 using UnityEngine;
 using System.Text;
+using System.IO;
 
 public class RoadGenerator {
 
@@ -26,17 +27,31 @@ public class RoadGenerator {
 	public void LoadTrackFile(string fileName) {
 		string trackString = PlanetUnityResourceCache.GetTextFile (fileName);
 
+		Sprite[] allSprites = Resources.LoadAll<Sprite>(Path.GetDirectoryName("Game/scenary/scenary"));
+		int numScenary = allSprites.Length;
+
 		int index = 0;
 		foreach (char c in trackString) {
-			if (c == '0' || c == '1') {
+
+			if (c >= '0' && c <= '1') {
 				int tileX = index % roadDimensions;
 				int tileY = ((roadDimensions-1) - index / roadDimensions);
 
-				if (c == '0') {
-					roadMap [tileX, tileY] = 0;
-				} else {
-					roadMap [tileX, tileY] = 1;
-				}
+				roadMap [tileX, tileY] = (byte)(c - '0');
+
+				index++;
+			}else if (c >= '2' && c <= '9') {
+				int tileX = index % roadDimensions;
+				int tileY = ((roadDimensions-1) - index / roadDimensions);
+
+				roadMap [tileX, tileY] = (byte)((c - '0') + 2);
+
+				index++;
+			}else if (c == '?') {
+				int tileX = index % roadDimensions;
+				int tileY = ((roadDimensions-1) - index / roadDimensions);
+
+				roadMap [tileX, tileY] = (byte)(Random.Range (0, numScenary) + 2);
 
 				index++;
 			}

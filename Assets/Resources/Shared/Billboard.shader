@@ -7,7 +7,7 @@ Shader "LD32/Billboard" {
 
 		Tags { "Queue"="Transparent" "IgnoreProjector"="True" "RenderType"="Transparent" }
 		Blend SrcAlpha OneMinusSrcAlpha
-		Cull Off Lighting Off ZWrite Off Fog { Color (0,0,0,0) }
+		Cull Off Lighting On ZWrite Off Fog { Color (0,0,0,0) }
 
 		Pass {   
 			CGPROGRAM
@@ -38,11 +38,11 @@ Shader "LD32/Billboard" {
 
 				float s, c, scale;
 
-				sincos((float)(_Time * input.texcoord1.y), s, c);
-				scale = 1.0 - (sin(_Time * input.texcoord1.y * 10.0) * 0.25);
+				sincos(0.0, s, c);
+				scale = 1.0;
 
 				float x = (input.normal.x * c - input.normal.y * s) * scale * input.texcoord1.x;
-				float y = (input.normal.x * s + input.normal.y * c) * scale * input.texcoord1.x;
+				float y = (input.normal.x * s + input.normal.y * c) * scale * input.texcoord1.y;
 
 				output.pos = mul(UNITY_MATRIX_P, mul(UNITY_MATRIX_MV, float4(input.vertex.x, input.vertex.y, input.vertex.z, 1.0)) - float4(x, y, 0.0, 0.0));
 				output.tex = input.texcoord;
