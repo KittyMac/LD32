@@ -7,7 +7,7 @@ Shader "LD32/TruckBillboard" {
 
 		Tags { "Queue"="Transparent-1" "IgnoreProjector"="True" "RenderType"="Transparent" }
 		Blend SrcAlpha OneMinusSrcAlpha
-		Cull Off Lighting On ZWrite Off Fog { Color (0,0,0,0) }
+		Cull Off Lighting Off ZWrite Off Fog { Color (0,0,0,0) }
 
 		Pass {   
 			CGPROGRAM
@@ -41,7 +41,7 @@ Shader "LD32/TruckBillboard" {
 				sincos((float)(_Time * input.texcoord1.y), s, c);
 				scale = 1.0 - (sin(_Time * input.texcoord1.y * 10.0) * 0.25);
 
-				float wiggleY = sin(_Time.w * 20.0f) * 1.0f;
+				float wiggleY = sin(_Time.w * 20.0f) * 2.0f;
 
 				float x = (input.normal.x * c - input.normal.y * s) * scale * input.texcoord1.x;
 				float y = (input.normal.x * s + input.normal.y * c) * scale * input.texcoord1.x;

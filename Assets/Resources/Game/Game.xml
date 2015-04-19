@@ -5,8 +5,8 @@
 		
 	<GameObject title="KetchupIndicators" size="300,64" anchor="bottom,left" />
 
-	<RawImage resourcePath="Game/turnip" position="32,-96" size="64,64" anchor="top,left" />
-	<Text title="TurnipScore" value="0 of 10" fontSize="20" fontColor="#FFFFFFFF" bounds="64,-112,100,48" pivot="0.5,0.5" anchor="top,left" />
+	<RawImage resourcePath="Game/turnip" position="52,-96" size="64,64" anchor="top,left" />
+	<Text title="TurnipScore" value="0 of 10" fontSize="20" fontColor="#FFFFFFFF" bounds="84,-112,100,48" pivot="0.5,0.5" anchor="top,left" />
 
 	<Code class="GameController" />
 	

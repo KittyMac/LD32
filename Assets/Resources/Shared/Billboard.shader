@@ -7,7 +7,7 @@ Shader "LD32/Billboard" {
 
 		Tags { "Queue"="Transparent" "IgnoreProjector"="True" "RenderType"="Transparent" }
 		Blend SrcAlpha OneMinusSrcAlpha
-		Cull Off Lighting On ZWrite Off Fog { Color (0,0,0,0) }
+		Cull Off Lighting Off ZWrite Off Fog { Color (0,0,0,0) }
 
 		Pass {   
 			CGPROGRAM
