@@ -14,9 +14,10 @@
 
 
 	<RawImage title="Vignette" resourcePath="Intro/vignette" anchor="stretch,stretch">
-		<RawImage title="Controls" size="649,172" anchor="bottom,left" resourcePath="Game/controls" />
+		<RawImage title="Controls" size="446,239" anchor="bottom,left" resourcePath="Game/controls" />
 		<Text title="LevelDesc" fontSize="20" fontColor="#FFFFFFFF" bounds="0,0,400,185" pivot="1.0,0.0" anchor="bottom,right" />
 	</RawImage>
+
 	<!---
 	<Switcher title="BubbleSwitcher" currentIndex="-1" anchor="stretch,stretch">
 		<Image resourcePath="Intro/bubble0" position="-250,32" size="169,123" anchor="middle,center" />
@@ -30,6 +31,7 @@
 		<Image resourcePath="Intro/bubble8" position="-250,-18" size="217,134" anchor="middle,center" />
 	</Switcher>
 	-->
+
 	<Color title="BlackCover" color="#000000FF" anchor="stretch,stretch" />
 
 

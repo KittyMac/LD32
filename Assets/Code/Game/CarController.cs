@@ -52,7 +52,7 @@ public class CarController : NotificationBehaviour {
 		PlayerTile (out lastTurnTileX, out lastTurnTileY);
 	}
 
-	public bool CanPlayerTurnLeft(out short distanceValue) {
+	public bool CanPlayerGo(float x, float y, out short distanceValue) {
 		int tileX, tileY;
 		PlayerTile (out tileX, out tileY);
 
@@ -63,9 +63,8 @@ public class CarController : NotificationBehaviour {
 
 		CheckRoadGenerator ();
 
-		Vector3 leftVector = playerVector.RotateLeftAboutY ();
-		tileX = Mathf.RoundToInt(tileX + leftVector.x);
-		tileY = Mathf.RoundToInt(tileY + leftVector.z);
+		tileX = Mathf.RoundToInt(tileX + x);
+		tileY = Mathf.RoundToInt(tileY + y);
 
 		distanceValue = gameController.GetDistanceGraphValue (tileX, tileY);
 
@@ -77,29 +76,15 @@ public class CarController : NotificationBehaviour {
 		return false;
 	}
 
+
+	public bool CanPlayerTurnLeft(out short distanceValue) {
+		Vector3 leftVector = playerVector.RotateLeftAboutY ();
+		return CanPlayerGo(leftVector.x, leftVector.z, out distanceValue);
+	}
+
 	public bool CanPlayerTurnRight(out short distanceValue) {
-		int tileX, tileY;
-		PlayerTile (out tileX, out tileY);
-
-		if (tileX == lastTurnTileX && tileY == lastTurnTileY) {
-			distanceValue = 32767;
-			return false;
-		}
-
-		CheckRoadGenerator ();
-
 		Vector3 leftVector = playerVector.RotateRightAboutY ();
-		tileX = Mathf.RoundToInt(tileX + leftVector.x);
-		tileY = Mathf.RoundToInt(tileY + leftVector.z);
-
-		distanceValue = gameController.GetDistanceGraphValue (tileX, tileY);
-
-		if (roadGenerator.roadMap [tileX, tileY] == 1) {
-			return true;
-		}
-
-		distanceValue = 32767;
-		return false;
+		return CanPlayerGo(leftVector.x, leftVector.z, out distanceValue);
 	}
 
 	public bool IsPlayerOnARoad() {

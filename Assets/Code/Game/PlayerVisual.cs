@@ -74,6 +74,32 @@ public class PlayerVisual : CarController {
 		UpdateCameraPosition ();
 	}
 
+	public bool CheckPlayerSpeed() {
+		if ((int)playerSpeed == 0) {
+			playerSpeed = MaximumSpeed ();
+			NotificationCenter.postNotification (null, "SpawnAllEnemies");
+			return false;
+		}
+		return true;
+	}
+
+	public bool MovePlayerInDirection(int x, int y){
+		short d;
+
+		// PLAYER CANNOT GO OPPOSITE DIRECTION THEY ARE ALREADY GOING
+		float dot = Vector3.Dot(playerVector.normalized, new Vector3(x, 0, y).normalized);
+		if (dot < -0.9f || dot > 0.9f) {
+			return false;
+		}
+
+		if (CanPlayerGo (x, y, out d)) {
+			playerVector = new Vector3 (x, 0, y);
+			MarkPlayerTurned ();
+			return true;
+		}
+		return false;
+	}
+
 	public void HandlePlayerControls() {
 
 		if (KetchupTimer > 0) {
@@ -85,39 +111,30 @@ public class PlayerVisual : CarController {
 			}
 		}
 
-		// Movement by AWSD keyboard
-		if (Input.GetKey ("w") || Input.GetKey (KeyCode.UpArrow)) {
-			// Speed up
-			playerSpeed += MaximumSpeed() * (Time.deltaTime * 0.5f);
-			if (playerSpeed > MaximumSpeed()) {
-				playerSpeed = MaximumSpeed();
-			}
 
-			NotificationCenter.postNotification (null, "SpawnAllEnemies");
-
-		} else if (Input.GetKey ("s") || Input.GetKey (KeyCode.DownArrow)) {
-			// Slow down
-			playerSpeed -= MaximumSpeed() * (Time.deltaTime * 0.25f);
-			if (playerSpeed < 0) {
-				playerSpeed = 0;
-			}
-		}
-
-		// Handle player turning
-		// 0) Find my current tile
-		// 1) If the tile to my left is road, allow a turn
-		// 2) If the tile to my right is a road, allow a turn
-		short leftDistance;
-		short rightDistance;
 		if (Input.GetKey ("a") || Input.GetKey (KeyCode.LeftArrow)) {
-			if (CanPlayerTurnLeft(out leftDistance)) {
-				playerVector = playerVector.RotateLeftAboutY ();
-				MarkPlayerTurned ();
+			if (CheckPlayerSpeed ()) {
+				if (!MovePlayerInDirection (-1, 0)) {
+					MovePlayerInDirection (0, 1);
+				}
 			}
 		} else if (Input.GetKey ("d") || Input.GetKey (KeyCode.RightArrow)) {
-			if (CanPlayerTurnRight(out rightDistance)) {
-				playerVector = playerVector.RotateRightAboutY ();
-				MarkPlayerTurned ();
+			if (CheckPlayerSpeed ()) {
+				if (!MovePlayerInDirection (1, 0)) {
+					MovePlayerInDirection (0, -1);
+				}
+			}
+		} else if (Input.GetKey ("w") || Input.GetKey (KeyCode.UpArrow)) {
+			if (CheckPlayerSpeed ()) {
+				if (!MovePlayerInDirection (0, 1)) {
+					MovePlayerInDirection (1, 0);
+				}
+			}
+		} else if (Input.GetKey ("s") || Input.GetKey (KeyCode.DownArrow)) {
+			if (CheckPlayerSpeed ()) {
+				if (!MovePlayerInDirection (0, -1)) {
+					MovePlayerInDirection (-1, 0);
+				}
 			}
 		}
 	}
