@@ -65,6 +65,8 @@ public class Enemy1Visual : CarController {
 
 	public void Update() {
 
+		playerSpeed = MaximumSpeed ();
+
 		HandleCarAI();
 		UpdatePlayer ();
 	}

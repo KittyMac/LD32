@@ -13,6 +13,10 @@ public partial class GameController : MonoBehaviour, IPUCode {
 
 	public PUText TurnipScore;
 
+	public void UpdateScoreField() {
+		PlayerScoreField.text.text = PlanetUnityStyle.ReplaceStyleTags(string.Format ("[b3]Score:[/b3] [p3]{0}[/p3]", PlayerScore));
+	}
+
 	public void CollectTurnip(GameObject turnip) {
 
 		NumberOfCollectedTurnips++;
@@ -23,7 +27,15 @@ public partial class GameController : MonoBehaviour, IPUCode {
 
 		GameObject.DestroyImmediate (turnip);
 
-		TurnipScore.text.text = string.Format ("{0} of {1}", NumberOfCollectedTurnips, 10);
+
+		PlayerScore += 100;
+		UpdateScoreField ();
+
+		TurnipScore.text.text = string.Format ("{0} of {1}", NumberOfCollectedTurnips, NumberOfTurnipsThisLevel);
+
+		if (turnips.Count <= 0) {
+			GameController.AdvanceNextLevel ();
+		}
 	}
 
 	public void RemoveEdgeIndicator(GameObject to) {

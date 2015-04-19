@@ -18,7 +18,7 @@
 		<Image resourcePath="Intro/bubble8" position="-250,-18" size="217,134" anchor="middle,center" />
 	</Switcher>
 	
-	<Color title="BlackCover" active="false" color="#000000FF" pivot="0.5,0.5" resourcePath="Intro/vignette" anchor="middle,center" />
+	<Color title="BlackCover" active="false" color="#000000FF" pivot="0.5,0.5" anchor="middle,center" />
 	
 	<TextButton title="SkipButton" active="false" value="SKIP" fontSize="20" fontColor="#00bff3FF" onTouchUp="SkipIntro"
 		position="400,-280" size="150,32" pivot="0.5,0.5" anchor="middle,center" />

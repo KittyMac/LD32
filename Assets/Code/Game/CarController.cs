@@ -4,7 +4,7 @@ using System.Text;
 
 public class CarController : NotificationBehaviour {
 
-	protected float playerSpeed = 600;
+	protected float playerSpeed = 0;
 	protected Vector3 playerVector = new Vector3(1, 0, 0);
 	protected Vector3 playerPosition = new Vector3(0, 64, 0);
 
@@ -14,6 +14,10 @@ public class CarController : NotificationBehaviour {
 	protected RoadGenerator roadGenerator;
 
 	protected float SpinningOutTimer = 0;
+
+	public virtual float MaximumSpeed() {
+		return 600;
+	}
 
 	public void CheckRoadGenerator() {
 		if (roadGenerator == null) {

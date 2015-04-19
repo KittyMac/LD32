@@ -6,7 +6,35 @@
 	<GameObject title="KetchupIndicators" size="300,64" anchor="bottom,left" />
 
 	<RawImage resourcePath="Game/turnip" position="52,-96" size="64,64" anchor="top,left" />
-	<Text title="TurnipScore" value="0 of 10" fontSize="20" fontColor="#FFFFFFFF" bounds="84,-112,100,48" pivot="0.5,0.5" anchor="top,left" />
+	<Text title="TurnipScore" value="-- of --" fontSize="20" fontColor="#FFFFFFFF" bounds="84,-112,100,48" pivot="0.5,0.5" anchor="top,left" />
+	<Text title="PlayerScoreField" value="" fontSize="20" alignment="middleRight" fontColor="#FFFFFFFF" bounds="-33,-60,400,48" pivot="1.0,0.5" anchor="top,right" />
+
+
+
+
+
+	<RawImage title="Vignette" resourcePath="Intro/vignette" anchor="stretch,stretch">
+		<RawImage title="Controls" size="649,172" anchor="bottom,left" resourcePath="Game/controls" />
+		<Text title="LevelDesc" fontSize="20" fontColor="#FFFFFFFF" bounds="0,0,400,185" pivot="1.0,0.0" anchor="bottom,right" />
+	</RawImage>
+	<!---
+	<Switcher title="BubbleSwitcher" currentIndex="-1" anchor="stretch,stretch">
+		<Image resourcePath="Intro/bubble0" position="-250,32" size="169,123" anchor="middle,center" />
+		<Image resourcePath="Intro/bubble1" position="10,48" size="302,171" anchor="middle,center" />
+		<Image resourcePath="Intro/bubble2" position="-250,-18" size="240,148" anchor="middle,center" />
+		<Image resourcePath="Intro/bubble3" position="-290,16" size="312,139" anchor="middle,center" />
+		<Image resourcePath="Intro/bubble4" position="30,64" size="202,161" anchor="middle,center" />
+		<Image resourcePath="Intro/bubble5" position="-240,16" size="312,139" anchor="middle,center" />
+		<Image resourcePath="Intro/bubble6" position="-278,24" size="312,139" anchor="middle,center" />
+		<Image resourcePath="Intro/bubble7" position="10,28" size="202,161" anchor="middle,center" />
+		<Image resourcePath="Intro/bubble8" position="-250,-18" size="217,134" anchor="middle,center" />
+	</Switcher>
+	-->
+	<Color title="BlackCover" color="#000000FF" anchor="stretch,stretch" />
+
+
+
+
 
 	<Code class="GameController" />
 	

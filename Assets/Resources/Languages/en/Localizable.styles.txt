@@ -1,0 +1,34 @@
+"[h]" = "<b><size=32><color=#c9daffff>";
+"[/h]" = "</color></32></b>";
+
+"[h1]" = "<b><size=32><color=#c9daffff>";
+"[/h1]" = "</color></size></b>";
+
+"[h2]" = "<b><size=28><color=#c9daffff>";
+"[/h2]" = "</color></size></b>";
+
+"[h3]" = "<b><size=26><color=#c9daffff>";
+"[/h3]" = "</color></size></b>";
+
+
+"[p1]" = "<size=32><color=#ffffffff>";
+"[/p1]" = "</color></size>";
+
+"[p2]" = "<size=28><color=#ffffffff>";
+"[/p2]" = "</color></size>";
+
+"[p3]" = "<size=26><color=#ffffffff>";
+"[/p3]" = "</color></size>";
+
+"[p4]" = "<size=24><color=#ffffffff>";
+"[/p4]" = "</color></size>";
+
+
+"[b1]" = "<b><size=32><color=#ffffffff>";
+"[/b1]" = "</color></size></b>";
+
+"[b2]" = "<b><size=28><color=#ffffffff>";
+"[/b2]" = "</color></size></b>";
+
+"[b3]" = "<b><size=26><color=#ffffffff>";
+"[/b3]" = "</color></size></b>";

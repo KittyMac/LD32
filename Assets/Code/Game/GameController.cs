@@ -19,6 +19,50 @@ public partial class GameController : MonoBehaviour, IPUCode {
 	public GameObject KetchupSpill;
 	public GameObject Turnip;
 
+	public PURawImage Vignette;
+	public PUColor BlackCover;
+	public PUText LevelDesc;
+	public PUText PlayerScoreField;
+
+	static public int LevelNumber = 1;
+	static public int PlayerScore = 0;
+	static public int NumberOfTurnipsThisLevel = 0;
+
+	static public void StartNewGame() {
+		LevelNumber = 1;
+		PlayerScore = 0;
+		NumberOfTurnipsThisLevel = 10;
+
+		Application.LoadLevelAsync ("01_Game");
+	}
+
+	static public void AdvanceNextLevel() {
+		LevelNumber++;
+		NumberOfTurnipsThisLevel = 10 + LevelNumber * 2;
+
+		Application.LoadLevelAsync ("01_Game");
+	}
+
+	public void AnimateIntro() {
+		BlackCover.CheckCanvasGroup ();
+		BlackCover.canvasGroup.alpha = 1.0f;
+		LeanTween.alpha (BlackCover.gameObject, 0.0f, 0.44f);
+
+		string levelDesc = string.Format("[b1]Level {0}[/b1]\n[p2]Collect All Turnips\nAvoid Selling Hot Dogs[/p2]", LevelNumber);
+		LevelDesc.text.text = PlanetUnityStyle.ReplaceStyleTags (levelDesc);
+
+		UpdateScoreField ();
+	}
+
+	public void EndIntro() {
+
+		BlackCover.unload ();
+
+		Vignette.CheckCanvasGroup ();
+		Vignette.canvasGroup.alpha = 1.0f;
+		LeanTween.alpha (Vignette.gameObject, 0.0f, 0.44f).setDestroyOnComplete (true);
+	}
+
 	public void Start() {
 
 		roadGenerator = new RoadGenerator();
@@ -31,9 +75,6 @@ public partial class GameController : MonoBehaviour, IPUCode {
 
 		CreatePlayerObject ();
 
-		AddEnemyOfType1 ();
-		AddEnemyOfType1 ();
-
 
 		NumberOfKetchupUses = 10;
 
@@ -41,6 +82,16 @@ public partial class GameController : MonoBehaviour, IPUCode {
 		for (int i = 0; i < 10; i++) {
 			AddTurnip ();
 		}
+
+		NotificationCenter.addObserver (this, "SpawnAllEnemies", null, (args, name) => {
+			if(enemies.Count == 0){
+				for(int i = 0; i < (LevelNumber+1); i++){
+					AddEnemyOfType1 ();
+				}
+
+				EndIntro();
+			}
+		});
 
 		NotificationCenter.addObserver (this, "UnconventionalWeaponActivate", null, (args, name) => {
 			if(NumberOfKetchupUses > 0){
@@ -59,6 +110,8 @@ public partial class GameController : MonoBehaviour, IPUCode {
 				NumberOfKetchupUses--;
 			}
 		});
+
+		AnimateIntro ();
 	}
 
 	public void CreateScenary() {

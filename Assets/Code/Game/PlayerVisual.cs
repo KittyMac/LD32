@@ -88,13 +88,16 @@ public class PlayerVisual : CarController {
 		// Movement by AWSD keyboard
 		if (Input.GetKey ("w") || Input.GetKey (KeyCode.UpArrow)) {
 			// Speed up
-			playerSpeed += 50.0f * Time.deltaTime;
-			if (playerSpeed > 600.0f) {
-				playerSpeed = 600.0f;
+			playerSpeed += MaximumSpeed() * (Time.deltaTime * 0.5f);
+			if (playerSpeed > MaximumSpeed()) {
+				playerSpeed = MaximumSpeed();
 			}
+
+			NotificationCenter.postNotification (null, "SpawnAllEnemies");
+
 		} else if (Input.GetKey ("s") || Input.GetKey (KeyCode.DownArrow)) {
 			// Slow down
-			playerSpeed -= 200.0f * Time.deltaTime;
+			playerSpeed -= MaximumSpeed() * (Time.deltaTime * 0.25f);
 			if (playerSpeed < 0) {
 				playerSpeed = 0;
 			}

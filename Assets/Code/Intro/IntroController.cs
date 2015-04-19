@@ -91,7 +91,7 @@ public partial class IntroController : MonoBehaviour, IPUCode {
 		BlackCover.canvasGroup.alpha = 0.0f;
 		BlackCover.gameObject.SetActive (true);
 		LeanTween.alpha (BlackCover.gameObject, 1.0f, 1.0f).setOnComplete(() => {
-			Application.LoadLevelAsync("01_Game");
+			GameController.StartNewGame();
 		});
 	}
 	
