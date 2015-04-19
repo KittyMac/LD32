@@ -113,6 +113,9 @@ public class CarController : NotificationBehaviour {
 	}
 
 	public void UpdatePlayer () {
+		if (gameController.GameIsOver) {
+			return;
+		}
 
 		ValidatePlayerPosition ();
 

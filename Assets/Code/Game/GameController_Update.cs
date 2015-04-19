@@ -15,6 +15,8 @@ public partial class GameController : MonoBehaviour, IPUCode {
 
 	public void UpdateScoreField() {
 		PlayerScoreField.text.text = PlanetUnityStyle.ReplaceStyleTags(string.Format ("[b3]Score:[/b3] [p3]{0}[/p3]", PlayerScore));
+
+		TurnipScore.text.text = string.Format ("{0} of {1}", NumberOfCollectedTurnips, NumberOfTurnipsThisLevel);
 	}
 
 	public void CollectTurnip(GameObject turnip) {
@@ -31,7 +33,7 @@ public partial class GameController : MonoBehaviour, IPUCode {
 		PlayerScore += 100;
 		UpdateScoreField ();
 
-		TurnipScore.text.text = string.Format ("{0} of {1}", NumberOfCollectedTurnips, NumberOfTurnipsThisLevel);
+
 
 		if (turnips.Count <= 0) {
 			GameController.AdvanceNextLevel ();
@@ -74,6 +76,10 @@ public partial class GameController : MonoBehaviour, IPUCode {
 
 	public void Update() {
 
+		if (GameIsOver == true) {
+			return;
+		}
+
 		// Solve the distance graph; this is use by the AI to know how to move towards the player
 		SolveDistanceGraphForPlayer ();
 
@@ -96,8 +102,8 @@ public partial class GameController : MonoBehaviour, IPUCode {
 			Vector3 enemyPos = enemy.gameObject.transform.position;
 
 			// Enemy vs player car
-			if (Vector3.Distance (playerPos, enemyPos) < 78) {
-				Debug.Log ("GAME OVER!");
+			if (Vector3.Distance (playerPos, enemyPos) < 64) {
+				GameOver ();
 			}
 
 			// Test enemy cars vs ketchup spills

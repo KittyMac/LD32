@@ -5,6 +5,11 @@ using System.Collections.Generic;
 
 public partial class GameController : MonoBehaviour, IPUCode {
 
+	static public int LevelNumber = 1;
+	static public int PlayerScore = 0;
+	static public int NumberOfTurnipsThisLevel = 10;
+
+
 	public RoadGenerator roadGenerator;
 	private MeshHelper roadMesh, roadMesh2, roadMesh3, roadMesh4, roadMesh5, roadMesh6, roadMesh7, roadMesh8, roadMesh9;
 
@@ -19,28 +24,31 @@ public partial class GameController : MonoBehaviour, IPUCode {
 	public GameObject KetchupSpill;
 	public GameObject Turnip;
 
+	public GameObject Bubble0;
+	public GameObject Bubble1;
+	public GameObject Bubble2;
+
 	public PURawImage Vignette;
 	public PUColor BlackCover;
 	public PUText LevelDesc;
 	public PUText PlayerScoreField;
 
-	static public int LevelNumber = 1;
-	static public int PlayerScore = 0;
-	static public int NumberOfTurnipsThisLevel = 0;
+	public bool GameIsOver = false;
+
 
 	static public void StartNewGame() {
 		LevelNumber = 1;
 		PlayerScore = 0;
 		NumberOfTurnipsThisLevel = 10;
 
-		Application.LoadLevelAsync ("01_Game");
+		Application.LoadLevel ("01_Game");
 	}
 
 	static public void AdvanceNextLevel() {
 		LevelNumber++;
 		NumberOfTurnipsThisLevel = 10 + LevelNumber * 2;
 
-		Application.LoadLevelAsync ("01_Game");
+		Application.LoadLevel ("01_Game");
 	}
 
 	public void AnimateIntro() {
@@ -64,6 +72,8 @@ public partial class GameController : MonoBehaviour, IPUCode {
 	}
 
 	public void Start() {
+
+		GameIsOver = false;
 
 		roadGenerator = new RoadGenerator();
 
