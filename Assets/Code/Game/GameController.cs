@@ -77,7 +77,7 @@ public partial class GameController : MonoBehaviour, IPUCode {
 
 		roadGenerator = new RoadGenerator();
 
-		roadGenerator.GenerateRoadMap ();
+		roadGenerator.GenerateRoadMap (LevelNumber);
 
 		CreateTiledRoad (roadGenerator);
 
@@ -95,7 +95,7 @@ public partial class GameController : MonoBehaviour, IPUCode {
 
 		NotificationCenter.addObserver (this, "SpawnAllEnemies", null, (args, name) => {
 			if(enemies.Count == 0){
-				for(int i = 0; i < (LevelNumber+1); i++){
+				for(int i = 0; i < (LevelNumber); i++){
 					AddEnemyOfType1 ();
 				}
 
@@ -176,7 +176,7 @@ public partial class GameController : MonoBehaviour, IPUCode {
 				Vector3 newCarPosition = new Vector3 ((randX * 128), 64, (randY * 128));
 				float d = Vector3.Distance (newCarPosition, player.transform.position);
 
-				if (car != player && d < 2648) {
+				if (car != player && d < 3648) {
 					continue;
 				}
 				break;

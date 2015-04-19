@@ -106,8 +106,10 @@ public class PlayerVisual : CarController {
 			KetchupTimer -= Time.deltaTime;
 		} else {
 			if (Input.GetKey (KeyCode.Space)) {
-				NotificationCenter.postNotification (null, "UnconventionalWeaponActivate");
-				KetchupTimer = KetchupDelay;
+				if (CheckPlayerSpeed ()) {
+					NotificationCenter.postNotification (null, "UnconventionalWeaponActivate");
+					KetchupTimer = KetchupDelay;
+				}
 			}
 		}
 

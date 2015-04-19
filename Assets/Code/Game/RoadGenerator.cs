@@ -24,8 +24,12 @@ public class RoadGenerator {
 		Debug.Log (sb);
 	}
 
-	public void LoadTrackFile(string fileName) {
-		string trackString = PlanetUnityResourceCache.GetTextFile (fileName);
+	public void LoadTrackFile(int gameLevel) {
+
+		int levelIdx = (gameLevel-1) % 4;
+		string levelFilePath = string.Format ("Game/maps/map{0}", levelIdx);
+
+		string trackString = PlanetUnityResourceCache.GetTextFile (levelFilePath);
 
 		Sprite[] allSprites = Resources.LoadAll<Sprite>(Path.GetDirectoryName("Game/scenary/scenary"));
 		int numScenary = allSprites.Length;
@@ -56,9 +60,45 @@ public class RoadGenerator {
 				index++;
 			}
 		}
+
+		// Add random scenary
+		for (int i = 0; i < 400; i++) {
+			int randX = Random.Range (5, 95);
+			int randY = Random.Range (5, 95);
+			byte type = (byte)(Random.Range (0, numScenary) + 2);
+
+
+			if (roadMap [randX, randY] == 0) {
+
+				// Check all neighbors, we need grass all around us
+				bool allGrass = true;
+				for (int x = -1; x <= 1; x++) {
+					for (int y = -1; y <= 1; y++) {
+						if (roadMap [randX+x, randY+y] != 0) {
+							allGrass = false;
+						}
+					}
+				}
+
+				// I must be within 2 of a road
+				bool hasRoad = false;
+				for (int x = -2; x <= 2; x++) {
+					for (int y = -2; y <= 2; y++) {
+						if (roadMap [randX+x, randY+y] != 0) {
+							hasRoad = true;
+						}
+					}
+				}
+
+				if (allGrass && hasRoad) {
+					roadMap [randX, randY] = type;
+				}
+			}
+		}
+
 	}
 
-	public void GenerateRoadMap() {
+	public void GenerateRoadMap(int level) {
 
 		roadTilesMap = new byte[roadDimensions,roadDimensions];
 		roadMap = new byte[roadDimensions,roadDimensions];
@@ -72,7 +112,7 @@ public class RoadGenerator {
 			}
 		}
 
-		LoadTrackFile("Game/track0");
+		LoadTrackFile(level);
 
 		// Convert all 0 and 1 to road tiles
 		for (int y = 0; y < roadDimensions; y++) {

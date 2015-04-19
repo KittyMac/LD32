@@ -10,11 +10,17 @@ public partial class IntroController : MonoBehaviour, IPUCode {
 	public PUColor BlackCover;
 	public PUSwitcher BubbleSwitcher;
 
+	public GameObject Ringtone;
+	public GameObject Music;
+
 	public void Start() {
 		ClickToStart.CheckCanvasGroup ();
 		LeanTween.value (ClickToStart.gameObject, (t, obj) => {
 			ClickToStart.canvasGroup.alpha = t;
 		}, 0.4f, 1.0f, 0.47f).setEase (LeanTweenType.easeOutCubic).setLoopPingPong ();
+
+
+		DontDestroyOnLoad(Music);
 	}
 
 	public void StartIntro(Hashtable args) {
@@ -29,6 +35,10 @@ public partial class IntroController : MonoBehaviour, IPUCode {
 		Vignette.canvasGroup.alpha = 0.0f;
 		Vignette.gameObject.SetActive (true);
 		LeanTween.alpha (Vignette.gameObject, 1.0f, 2.0f);
+
+		LeanTween.delayedCall (1.0f, () => {
+			Ringtone.GetComponent<AudioSource>().Play();
+		});
 
 		float t = 2.0f;
 		LeanTween.delayedCall (t, () => {
