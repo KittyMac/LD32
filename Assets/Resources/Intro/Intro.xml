@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Canvas title="Scene" renderMode="ScreenSpaceCamera" xmlns="http://schema.smallplanet.com/PlanetUnity2.xsd" >
 	<RawImage size="960,600" pivot="0.5,0.5" resourcePath="Intro/background" anchor="middle,center" />	
-	
+
+	<RawImage title="Logo" position="0,-100" size="450,180" pivot="0.5,0.5" resourcePath="Intro/logo" anchor="top,center" />
+
 	<RawImage title="ClickToStart" position="0,-200" size="524,70" pivot="0.5,0.5" resourcePath="Intro/clickToStart" anchor="middle,center" />
 	
 	<RawImage title="Vignette" active="false" pivot="0.5,0.5" resourcePath="Intro/vignette" anchor="middle,center" />

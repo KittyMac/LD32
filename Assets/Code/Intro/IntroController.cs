@@ -10,6 +10,8 @@ public partial class IntroController : MonoBehaviour, IPUCode {
 	public PUColor BlackCover;
 	public PUSwitcher BubbleSwitcher;
 
+	public PURawImage Logo;
+
 	public GameObject Ringtone;
 	public GameObject Music;
 
@@ -29,6 +31,9 @@ public partial class IntroController : MonoBehaviour, IPUCode {
 		sender.unload ();
 
 		ClickToStart.unload ();
+
+		Logo.CheckCanvasGroup ();
+		LeanTween.alpha (Logo.gameObject, 0.0f, 0.66f);
 
 		// Play intro animation / story
 		Vignette.CheckCanvasGroup();

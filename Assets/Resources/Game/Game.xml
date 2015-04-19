@@ -20,8 +20,8 @@
 
 	<GameObject title="End" active="false" anchor="stretch,stretch">
 		<RawImage title="EndVignette" resourcePath="Intro/vignette" anchor="stretch,stretch" />
-		<RawImage title="EndLogo" resourcePath="Game/end" position="0,100" size="441,443" pivot="0.5,0.5" anchor="middle,center" />
-		<Text title="EndScoreField" value="" fontSize="20" alignment="middleCenter" fontColor="#FFFFFFFF" bounds="0,60,400,48" pivot="0.5,0.5" anchor="bottom,center" />
+		<RawImage title="EndLogo" resourcePath="Game/end" position="0,60" size="441,443" pivot="0.5,0.5" anchor="middle,center" />
+		<Text title="EndScoreField" value="" fontSize="20" alignment="middleCenter" fontColor="#FFFFFFFF" bounds="0,30,400,48" pivot="0.5,0.5" anchor="bottom,center" />
 		<RawImage title="ClickToTryAgain" position="0,-200" size="524,70" pivot="0.5,0.5" resourcePath="Game/clickToTryAgain" anchor="middle,center" />
 		<ClearButton anchor="stretch,stretch" onTouchUp="UserWantsToTryAgain" />
 	</GameObject>

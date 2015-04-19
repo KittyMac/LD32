@@ -89,7 +89,7 @@ public partial class GameController : MonoBehaviour, IPUCode {
 		NumberOfKetchupUses = 10;
 
 		NumberOfCollectedTurnips = 0;
-		for (int i = 0; i < 10; i++) {
+		for (int i = 0; i < NumberOfTurnipsThisLevel; i++) {
 			AddTurnip ();
 		}
 
