@@ -162,7 +162,11 @@ public partial class GameController : MonoBehaviour, IPUCode {
 
 			if(controller.MovePlayerToTile (randX, randY)){
 				// Cannot be too close to the player
-				if (car != player && Vector3.Distance (car.transform.position, player.transform.position) < 4096) {
+
+				Vector3 newCarPosition = new Vector3 ((randX * 128), 64, (randY * 128));
+				float d = Vector3.Distance (newCarPosition, player.transform.position);
+
+				if (car != player && d < 2648) {
 					continue;
 				}
 				break;
@@ -179,13 +183,20 @@ public partial class GameController : MonoBehaviour, IPUCode {
 
 			if(roadGenerator.roadMap [randX, randY] == 1){
 				// Cannot be too close to any other turnips
+				newTurnip.transform.position = new Vector3 ((randX * 128), 32, (randY * 128));
+
+				bool spotIsGood = true;
 				foreach (GameObject turnip in turnips) {
-					if (Vector3.Distance (turnip.transform.position, newTurnip.transform.position) < 2048) {
-						continue;
+					float d = Vector3.Distance (turnip.transform.position, newTurnip.transform.position);
+					if (d < 1024) {
+						spotIsGood = false;
+						break;
 					}
 				}
 
-				newTurnip.transform.position = new Vector3 ((randX * 128), 32, (randY * 128));
+				if (!spotIsGood) {
+					continue;
+				}
 
 				break;
 			}
