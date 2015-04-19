@@ -62,7 +62,7 @@ public class RoadGenerator {
 		}
 
 		// Add random scenary
-		for (int i = 0; i < 400; i++) {
+		for (int i = 0; i < 600; i++) {
 			int randX = Random.Range (5, 95);
 			int randY = Random.Range (5, 95);
 			byte type = (byte)(Random.Range (0, numScenary) + 2);
