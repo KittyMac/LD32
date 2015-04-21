@@ -92,9 +92,6 @@ public class ScenaryVisual : MonoBehaviour {
 			}
 		}
 
-
-
-
 		mesh.Commit (true);
 	}
 	

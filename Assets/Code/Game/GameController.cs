@@ -243,15 +243,15 @@ public partial class GameController : MonoBehaviour, IPUCode {
 			roadMesh9.Clear ();
 		}
 
-		roadMesh = new MeshHelper (RoadGenerator.roadDimensions * RoadGenerator.roadDimensions, "Game/tiles", "Mobile/Diffuse");
-		roadMesh2 = new MeshHelper (RoadGenerator.roadDimensions * RoadGenerator.roadDimensions, "Game/tiles", "Mobile/Diffuse");
-		roadMesh3 = new MeshHelper (RoadGenerator.roadDimensions * RoadGenerator.roadDimensions, "Game/tiles", "Mobile/Diffuse");
-		roadMesh4 = new MeshHelper (RoadGenerator.roadDimensions * RoadGenerator.roadDimensions, "Game/tiles", "Mobile/Diffuse");
-		roadMesh5 = new MeshHelper (RoadGenerator.roadDimensions * RoadGenerator.roadDimensions, "Game/tiles", "Mobile/Diffuse");
-		roadMesh6 = new MeshHelper (RoadGenerator.roadDimensions * RoadGenerator.roadDimensions, "Game/tiles", "Mobile/Diffuse");
-		roadMesh7 = new MeshHelper (RoadGenerator.roadDimensions * RoadGenerator.roadDimensions, "Game/tiles", "Mobile/Diffuse");
-		roadMesh8 = new MeshHelper (RoadGenerator.roadDimensions * RoadGenerator.roadDimensions, "Game/tiles", "Mobile/Diffuse");
-		roadMesh9 = new MeshHelper (RoadGenerator.roadDimensions * RoadGenerator.roadDimensions, "Game/tiles", "Mobile/Diffuse");
+		roadMesh = new MeshHelper (RoadGenerator.roadDimensions * RoadGenerator.roadDimensions, "Game/tiles", "Unlit/Texture");
+		roadMesh2 = new MeshHelper (RoadGenerator.roadDimensions * RoadGenerator.roadDimensions, "Game/tiles", "Unlit/Texture");
+		roadMesh3 = new MeshHelper (RoadGenerator.roadDimensions * RoadGenerator.roadDimensions, "Game/tiles", "Unlit/Texture");
+		roadMesh4 = new MeshHelper (RoadGenerator.roadDimensions * RoadGenerator.roadDimensions, "Game/tiles", "Unlit/Texture");
+		roadMesh5 = new MeshHelper (RoadGenerator.roadDimensions * RoadGenerator.roadDimensions, "Game/tiles", "Unlit/Texture");
+		roadMesh6 = new MeshHelper (RoadGenerator.roadDimensions * RoadGenerator.roadDimensions, "Game/tiles", "Unlit/Texture");
+		roadMesh7 = new MeshHelper (RoadGenerator.roadDimensions * RoadGenerator.roadDimensions, "Game/tiles", "Unlit/Texture");
+		roadMesh8 = new MeshHelper (RoadGenerator.roadDimensions * RoadGenerator.roadDimensions, "Game/tiles", "Unlit/Texture");
+		roadMesh9 = new MeshHelper (RoadGenerator.roadDimensions * RoadGenerator.roadDimensions, "Game/tiles", "Unlit/Texture");
 
 		for (int y = 0; y < RoadGenerator.roadDimensions; y++) {
 			for (int x = 0; x < RoadGenerator.roadDimensions; x++) {
